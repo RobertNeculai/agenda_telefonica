@@ -6,40 +6,40 @@ import java.util.StringJoiner;
 public class CreateAgendaRequest {
 
     // DTO (Data transfer Object)
-        private String nume;
-        private String prenume;
-        private String telefon;
+        private String last_name;
+        private String first_name;
+        private String phonenumber;
 
-        public String getPrenume() {
-            return prenume;
+        public String getFirst_name() {
+            return first_name;
         }
 
-        public void setPrenume(String prenume) {
-            this.prenume = prenume;
+        public void setFirst_name(String first_name) {
+            this.first_name = first_name;
         }
 
-        public String getNume() {
-            return nume;
+        public String getLast_name() {
+            return last_name;
         }
 
-        public void setNume(String nume) {
-            this.nume = nume;
+        public void setLast_name(String last_name) {
+            this.last_name = last_name;
         }
 
-        public String getTelefon() {
-            return telefon;
+        public String getPhonenumber() {
+            return phonenumber;
         }
 
-        public void setTelefon(String telefon) {
-            this.telefon = telefon;
+        public void setPhonenumber(String telefon) {
+            this.phonenumber = telefon;
         }
 
         @Override
         public String toString() {
             return new StringJoiner(", ", CreateAgendaRequest.class.getSimpleName() + "[", "]")
-                    .add("prenume='" + prenume + "'")
-                    .add("nume='" + nume + "'")
-                    .add("telefon=" + telefon)
+                    .add("prenume='" + first_name + "'")
+                    .add("nume='" + last_name + "'")
+                    .add("telefon=" + phonenumber)
                     .toString();
         }
     }

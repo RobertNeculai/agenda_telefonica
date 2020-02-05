@@ -27,8 +27,6 @@ public class AgendaService {
         }
         public List<Agenda> getContacts() throws IOException, SQLException, ClassNotFoundException {
             System.out.println("List of contacts: ");
-            return agendaRepository.getContact();
+            return agendaRepository.getContacts();
         }
-
-
     }

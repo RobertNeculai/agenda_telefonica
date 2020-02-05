@@ -8,40 +8,40 @@ public class UpdateAgendaRequest {
 
     // DTO (Data transfer Object)
 
-        private String nume;
-        private String prenume;
-        private String telefon;
+    private String last_name;
+    private String first_name;
+    private String phonenumber;
 
-    public String getNume() {
-        return nume;
+    public String getLast_name() {
+        return last_name;
     }
 
-    public void setNume(String nume) {
-        this.nume = nume;
+    public void setLast_name(String last_name) {
+        this.last_name = last_name;
     }
 
-    public String getPrenume() {
-        return prenume;
+    public String getFirst_name() {
+        return first_name;
     }
 
-    public void setPrenume(String prenume) {
-        this.prenume = prenume;
+    public void setFirst_name(String first_name) {
+        this.first_name = first_name;
     }
 
-    public String getTelefon() {
-        return telefon;
+    public String getPhonenumber() {
+        return phonenumber;
     }
 
-    public void setTelefon(String telefon) {
-        this.telefon = telefon;
+    public void setPhonenumber(String phonenumber) {
+        this.phonenumber = phonenumber;
     }
 
     @Override
     public String toString() {
         return new StringJoiner(", ", UpdateAgendaRequest.class.getSimpleName() + "[", "]")
-                .add("nume='" + nume + "'")
-                .add("prenume='" + prenume + "'")
-                .add("telefon=" + telefon)
+                .add("nume='" + last_name + "'")
+                .add("prenume='" + first_name + "'")
+                .add("telefon=" + phonenumber)
                 .toString();
     }
 }

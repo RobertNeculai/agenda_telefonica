@@ -15,18 +15,18 @@ public class AgendaRepository {
             String sql="INSERT INTO agenda (nume,prenume,telefon ) VALUES (?,?,?)";
             try(Connection connection=DatabaseConfiguration.getConnection();
                 PreparedStatement preparedStatement=connection.prepareStatement(sql)){
-                preparedStatement.setString(1,request.getNume());
-                preparedStatement.setString(2,request.getPrenume());
-                preparedStatement.setString(3, request.getTelefon());
+                preparedStatement.setString(1,request.getLast_name());
+                preparedStatement.setString(2,request.getFirst_name());
+                preparedStatement.setString(3, request.getPhonenumber());
                 preparedStatement.executeUpdate();
             }
         }
         public void updateContact(long id,UpdateAgendaRequest request) throws IOException, SQLException, ClassNotFoundException {
             // preventing SQL injection by avoiding concatanation using preparedStatement
-            String sql="UPDATE agenda SET telefon=? WHERE id= ?";
+            String sql="UPDATE agenda SET phonenumber=? WHERE id= ?";
             try(Connection connection=DatabaseConfiguration.getConnection();
                 PreparedStatement preparedStatement=connection.prepareStatement(sql)){
-                preparedStatement.setString(1, request.getTelefon());
+                preparedStatement.setString(1, request.getPhonenumber());
                 preparedStatement.setLong(2, id);
                 preparedStatement.executeUpdate();
             }
@@ -40,8 +40,27 @@ public class AgendaRepository {
                 preparedStatement.executeUpdate();
             }
         }
-        public List<Agenda> getContact() throws IOException, SQLException, ClassNotFoundException {
-            String sql=" SELECT id, nume, prenume, telefon FROM agenda";
+        public List<Agenda> getContact(String last_name) throws IOException, SQLException, ClassNotFoundException {
+            String sql = "SELECT id, last_name, first_name, phonenumber FROM agenda WHERE first_name=? OR last_name=?";
+            try (Connection connection = DatabaseConfiguration.getConnection();
+                 Statement statement = connection.createStatement();
+                 ResultSet resultSet = statement.executeQuery(sql)) {
+                List<Agenda> agenda = new ArrayList<>();
+                while (resultSet.next()) {
+                    Agenda contact = new Agenda();
+                    if (contact.getLast_name() == last_name) {
+                        contact.setId(resultSet.getLong("id"));
+                        contact.setLast_name(resultSet.getString("last_name"));
+                        contact.setFirst_name(resultSet.getString("first_name"));
+                        contact.setPhonenumber(resultSet.getString("phonenumber"));
+                        agenda.add(contact);
+                    }
+                }
+                return agenda;
+            }
+        }
+        public List<Agenda> getContacts() throws IOException, SQLException, ClassNotFoundException {
+            String sql=" SELECT id, last_name, first_name, phonenumber FROM agenda";
             try(Connection connection=DatabaseConfiguration.getConnection();
                 // Statement used only for no parameter queries
                 Statement statement= connection.createStatement();
@@ -50,9 +69,9 @@ public class AgendaRepository {
                 while(resultSet.next()){
                     Agenda contact=new Agenda();
                     contact.setId(resultSet.getLong("id"));
-                    contact.setNume(resultSet.getString("nume"));
-                    contact.setPrenume(resultSet.getString("prenume"));
-                    contact.setTelefon(resultSet.getString("telefon"));
+                    contact.setLast_name(resultSet.getString("last_name"));
+                    contact.setFirst_name(resultSet.getString("first_name"));
+                    contact.setPhonenumber(resultSet.getString("phonenumber"));
                     agenda.add(contact);
                 }
                 return agenda;

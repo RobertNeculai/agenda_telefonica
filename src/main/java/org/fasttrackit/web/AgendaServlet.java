@@ -51,9 +51,7 @@ import org.fasttrackit.transfer.UpdateAgendaRequest;
         //Endpoint Update
         @Override
         protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-            //List<Task> task= taskService.getTasks();
-            // String response=ObjectMapperConfiguration.ObjectMapper.writeValueAsString(task);
-            // response.getWriter().print(response);
+            CreateAgendaRequest request= ObjectMapperConfiguration.objectMapper.readValue(req.getReader(),CreateAgendaRequest.class);
             try {
                 ObjectMapperConfiguration.objectMapper.writeValue(resp.getWriter(),agendaService.getContacts());
             } catch (SQLException | ClassNotFoundException e) {
