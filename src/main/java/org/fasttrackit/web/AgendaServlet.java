@@ -11,6 +11,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.fasttrackit.config.ObjectMapperConfiguration;
 import org.fasttrackit.service.AgendaService;
 import org.fasttrackit.transfer.CreateAgendaRequest;
+import org.fasttrackit.transfer.GetAgendaRequest;
 import org.fasttrackit.transfer.UpdateAgendaRequest;
 
     @WebServlet("/contacts")
@@ -51,11 +52,31 @@ import org.fasttrackit.transfer.UpdateAgendaRequest;
         //Endpoint Update
         @Override
         protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-            CreateAgendaRequest request= ObjectMapperConfiguration.objectMapper.readValue(req.getReader(),CreateAgendaRequest.class);
-            try {
-                ObjectMapperConfiguration.objectMapper.writeValue(resp.getWriter(),agendaService.getContacts());
-            } catch (SQLException | ClassNotFoundException e) {
-                resp.sendError(500, "Internal server error: " + e.getMessage());
+            setAccesControlHeaders(resp);
+            String fn=req.getParameter("first_name");
+            if(fn==null) {
+                try {
+                    ObjectMapperConfiguration.objectMapper.writeValue(resp.getWriter(), agendaService.getContacts());
+                } catch (SQLException | ClassNotFoundException e) {
+                    resp.sendError(500, "Internal server error: " + e.getMessage());
+                }
             }
+            else
+            {
+                GetAgendaRequest request= new GetAgendaRequest();
+                request.setFirst_name(fn);
+                try {
+                    ObjectMapperConfiguration.objectMapper.writeValue(resp.getWriter(), agendaService.getContact(request));
+                } catch (SQLException | ClassNotFoundException e) {
+                    resp.sendError(500, "Internal server error: " + e.getMessage());
+                }
+            }
+        }
+        private void setAccesControlHeaders(HttpServletResponse resp)
+        {
+            // CORS configuration ( cross origin resource sharing)
+            resp.setHeader("Access-Control-Allow-Origin","*");
+            resp.setHeader("Access-Control-Allow-Methods","GET, POST, PUT, DELETE");
+            resp.setHeader("Access-Control-Allow-Headers","content-type");
         }
     }

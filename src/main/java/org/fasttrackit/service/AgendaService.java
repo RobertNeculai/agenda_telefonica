@@ -6,6 +6,7 @@ import java.util.List;
 import org.fasttrackit.Domain.Agenda;
 import org.fasttrackit.persistance.AgendaRepository;
 import org.fasttrackit.transfer.CreateAgendaRequest;
+import org.fasttrackit.transfer.GetAgendaRequest;
 import org.fasttrackit.transfer.UpdateAgendaRequest;
 
 public class AgendaService {
@@ -28,5 +29,10 @@ public class AgendaService {
         public List<Agenda> getContacts() throws IOException, SQLException, ClassNotFoundException {
             System.out.println("List of contacts: ");
             return agendaRepository.getContacts();
+        }
+        public List<Agenda>getContact(GetAgendaRequest request) throws IOException, SQLException, ClassNotFoundException
+        {
+            System.out.println("List of contacts: ");
+            return agendaRepository.getContact(request);
         }
     }
