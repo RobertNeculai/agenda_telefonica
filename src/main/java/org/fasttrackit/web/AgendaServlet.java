@@ -20,6 +20,7 @@ import org.fasttrackit.transfer.UpdateAgendaRequest;
         //EndPoint
         @Override
         protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+            setAccesControlHeaders(resp);
             CreateAgendaRequest request= ObjectMapperConfiguration.objectMapper.readValue(req.getReader(),CreateAgendaRequest.class);
 
             try {
@@ -31,6 +32,7 @@ import org.fasttrackit.transfer.UpdateAgendaRequest;
         // Endpoint Delete
         @Override
         protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+            setAccesControlHeaders(resp);
             String id=req.getParameter("id");
             try {
                 agendaService.deleteContact(Long.parseLong(id));
@@ -41,6 +43,7 @@ import org.fasttrackit.transfer.UpdateAgendaRequest;
 
         @Override
         protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+            setAccesControlHeaders(resp);
             String id = req.getParameter("id");
             UpdateAgendaRequest request= ObjectMapperConfiguration.objectMapper.readValue(req.getReader(),UpdateAgendaRequest.class);
             try {
@@ -71,6 +74,11 @@ import org.fasttrackit.transfer.UpdateAgendaRequest;
                     resp.sendError(500, "Internal server error: " + e.getMessage());
                 }
             }
+        }
+        @Override
+        protected void doOptions(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+            setAccesControlHeaders(resp);
+            // for preflight requests
         }
         private void setAccesControlHeaders(HttpServletResponse resp)
         {
