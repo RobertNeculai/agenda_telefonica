@@ -2,7 +2,7 @@ package org.fasttrackit.Domain;
 
 import java.util.StringJoiner;
 
-public class Agenda {
+public class AgendaItem {
         private long id;
     private String last_name;
     private String first_name;
@@ -46,7 +46,7 @@ public class Agenda {
 
     @Override
     public String toString() {
-        return new StringJoiner(", ", Agenda.class.getSimpleName() + "[", "]")
+        return new StringJoiner(", ", AgendaItem.class.getSimpleName() + "[", "]")
                 .add("id=" + id)
                 .add("nume='" + last_name + "'")
                 .add("prenume='" + first_name + "'")

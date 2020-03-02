@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import org.fasttrackit.Domain.Agenda;
+import org.fasttrackit.Domain.AgendaItem;
 import org.fasttrackit.transfer.CreateAgendaRequest;
 import org.fasttrackit.transfer.GetAgendaRequest;
 import org.fasttrackit.transfer.UpdateAgendaRequest;
@@ -41,7 +41,7 @@ public class AgendaRepository {
                 preparedStatement.executeUpdate();
             }
         }
-        public List<Agenda>getContact(GetAgendaRequest request) throws IOException, SQLException, ClassNotFoundException
+        public List<AgendaItem>getContact(GetAgendaRequest request) throws IOException, SQLException, ClassNotFoundException
         {
             String sql="SELECT id, last_name, first_name, phonenumber FROM agenda WHERE first_name LIKE ?";
             try(Connection connection=DatabaseConfiguration.getConnection();
@@ -49,9 +49,9 @@ public class AgendaRepository {
             {
             preparedStatement.setString(1,request.getFirst_name());
                 ResultSet resultSet= preparedStatement.executeQuery();
-                List<Agenda> agenda=new ArrayList<>();
+                List<AgendaItem> agenda=new ArrayList<>();
                 while(resultSet.next()){
-                    Agenda contact=new Agenda();
+                    AgendaItem contact=new AgendaItem();
                     contact.setId(resultSet.getLong("id"));
                     contact.setLast_name(resultSet.getString("last_name"));
                     contact.setFirst_name(resultSet.getString("first_name"));
@@ -61,15 +61,15 @@ public class AgendaRepository {
                 return agenda;
             }
         }
-        public List<Agenda> getContacts() throws IOException, SQLException, ClassNotFoundException {
+        public List<AgendaItem> getContacts() throws IOException, SQLException, ClassNotFoundException {
             String sql=" SELECT id, last_name, first_name, phonenumber FROM agenda";
             try(Connection connection=DatabaseConfiguration.getConnection();
                 // Statement used only for no parameter queries
                 Statement statement= connection.createStatement();
                 ResultSet resultSet= statement.executeQuery(sql)) {
-                List<Agenda> agenda=new ArrayList<>();
+                List<AgendaItem> agenda=new ArrayList<>();
                 while(resultSet.next()){
-                    Agenda contact=new Agenda();
+                    AgendaItem contact=new AgendaItem();
                     contact.setId(resultSet.getLong("id"));
                     contact.setLast_name(resultSet.getString("last_name"));
                     contact.setFirst_name(resultSet.getString("first_name"));

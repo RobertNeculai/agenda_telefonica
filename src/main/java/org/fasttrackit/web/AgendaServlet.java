@@ -56,8 +56,8 @@ import org.fasttrackit.transfer.UpdateAgendaRequest;
         @Override
         protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
             setAccesControlHeaders(resp);
-            String fn=req.getParameter("first_name");
-            if(fn==null) {
+            String firstNameValue=req.getParameter("first_name");
+            if(firstNameValue==null) {
                 try {
                     ObjectMapperConfiguration.objectMapper.writeValue(resp.getWriter(), agendaService.getContacts());
                 } catch (SQLException | ClassNotFoundException e) {
@@ -67,7 +67,7 @@ import org.fasttrackit.transfer.UpdateAgendaRequest;
             else
             {
                 GetAgendaRequest request= new GetAgendaRequest();
-                request.setFirst_name(fn);
+                request.setFirst_name(firstNameValue);
                 try {
                     ObjectMapperConfiguration.objectMapper.writeValue(resp.getWriter(), agendaService.getContact(request));
                 } catch (SQLException | ClassNotFoundException e) {

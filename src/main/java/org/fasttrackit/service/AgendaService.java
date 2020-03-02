@@ -3,7 +3,7 @@ package org.fasttrackit.service;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
-import org.fasttrackit.Domain.Agenda;
+import org.fasttrackit.Domain.AgendaItem;
 import org.fasttrackit.persistance.AgendaRepository;
 import org.fasttrackit.transfer.CreateAgendaRequest;
 import org.fasttrackit.transfer.GetAgendaRequest;
@@ -26,11 +26,11 @@ public class AgendaService {
             System.out.println("Deleting contact: "+id);
             agendaRepository.deleteContact(id);
         }
-        public List<Agenda> getContacts() throws IOException, SQLException, ClassNotFoundException {
+        public List<AgendaItem> getContacts() throws IOException, SQLException, ClassNotFoundException {
             System.out.println("List of contacts: ");
             return agendaRepository.getContacts();
         }
-        public List<Agenda>getContact(GetAgendaRequest request) throws IOException, SQLException, ClassNotFoundException
+        public List<AgendaItem>getContact(GetAgendaRequest request) throws IOException, SQLException, ClassNotFoundException
         {
             System.out.println("List of contacts: ");
             return agendaRepository.getContact(request);
