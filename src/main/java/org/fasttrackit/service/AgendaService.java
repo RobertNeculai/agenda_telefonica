@@ -22,6 +22,14 @@ public class AgendaService {
             System.out.println("Update contact: "+id+": "+request);
             agendaRepository.updateContact(id,request);
         }
+    public void UpdateContactEmail(long id,UpdateAgendaRequest request) throws IOException, SQLException, ClassNotFoundException {
+        System.out.println("Update contact: " + id + ": " + request);
+        agendaRepository.updateContactEmail(id, request);
+    }
+    public void updateContactEmailAndPhoneNumber(long id,UpdateAgendaRequest request) throws IOException, SQLException, ClassNotFoundException {
+        System.out.println("Update contact: " + id + ": " + request);
+        agendaRepository.updateContactEmailAndPhoneNumber(id, request);
+    }
         public void deleteContact(long id) throws IOException, SQLException, ClassNotFoundException {
             System.out.println("Deleting contact: "+id);
             agendaRepository.deleteContact(id);

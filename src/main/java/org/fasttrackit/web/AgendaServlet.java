@@ -45,11 +45,26 @@ import org.fasttrackit.transfer.UpdateAgendaRequest;
         protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
             setAccesControlHeaders(resp);
             String id = req.getParameter("id");
-            UpdateAgendaRequest request= ObjectMapperConfiguration.objectMapper.readValue(req.getReader(),UpdateAgendaRequest.class);
-            try {
-                agendaService.UpdateContact(Long.parseLong(id),request);
-            } catch (SQLException | ClassNotFoundException e) {
-                resp.sendError(500, "Internal server error: " + e.getMessage());
+            UpdateAgendaRequest request = ObjectMapperConfiguration.objectMapper.readValue(req.getReader(), UpdateAgendaRequest.class);
+            if (request.getPhonenumber() != null && request.getEmail() == null || request.getEmail() == "") {
+                try {
+                    agendaService.UpdateContact(Long.parseLong(id), request);
+                } catch (SQLException | ClassNotFoundException e) {
+                    resp.sendError(500, "Internal server error: " + e.getMessage());
+                }
+            } else if (request.getPhonenumber() != null && request.getEmail() != null) {
+                try {
+                    agendaService.updateContactEmailAndPhoneNumber(Long.parseLong(id), request);
+                } catch (SQLException | ClassNotFoundException e) {
+                    resp.sendError(500, "Internal server error: " + e.getMessage());
+                }
+            } else if (request.getPhonenumber() == null && request.getEmail() != null) {
+                try {
+                    agendaService.UpdateContactEmail(Long.parseLong(id), request);
+                } catch (SQLException | ClassNotFoundException e) {
+                    resp.sendError(500, "Internal server error: " + e.getMessage());
+                }
+
             }
         }
         //Endpoint Update

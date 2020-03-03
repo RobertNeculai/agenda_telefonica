@@ -6,7 +6,15 @@ public class AgendaItem {
         private long id;
     private String last_name;
     private String first_name;
+    private String phonenumber;
+    private String email;
 
+    public String getEmail() {
+        return email;
+    }
+    public void setEmail(String email) {
+        this.email = email;
+    }
     public long getId() {
         return id;
     }
@@ -39,8 +47,6 @@ public class AgendaItem {
         this.phonenumber = phonenumber;
     }
 
-    private String phonenumber;
-
 
 
 
@@ -51,6 +57,7 @@ public class AgendaItem {
                 .add("nume='" + last_name + "'")
                 .add("prenume='" + first_name + "'")
                 .add("telefon=" + phonenumber)
+                .add("email="+ email)
                 .toString();
     }
 

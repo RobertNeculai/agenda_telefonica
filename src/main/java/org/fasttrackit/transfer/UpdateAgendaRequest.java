@@ -11,6 +11,15 @@ public class UpdateAgendaRequest {
     private String last_name;
     private String first_name;
     private String phonenumber;
+    private String email;
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     public String getLast_name() {
         return last_name;
@@ -42,6 +51,7 @@ public class UpdateAgendaRequest {
                 .add("nume='" + last_name + "'")
                 .add("prenume='" + first_name + "'")
                 .add("telefon=" + phonenumber)
+                .add("email=" + email)
                 .toString();
     }
 }
